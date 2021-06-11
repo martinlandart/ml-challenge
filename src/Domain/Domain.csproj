@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>mercadolibre_challenge.Domain</RootNamespace>
+    <AssemblyName>mercadolibre_challenge.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>
