@@ -15,6 +15,10 @@ namespace mercadolibre_challenge.Domain.UnitTests.Entities
             "ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"
         };
 
+        private readonly string[] humanSequenceRows = new string[6] {
+            "ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"
+        };
+
         private static char[,] ConvertRowsToMultiDimensionalArray(string[] rows)
         {
             var array = new char[6, 6];
