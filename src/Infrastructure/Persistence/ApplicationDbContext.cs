@@ -31,10 +31,6 @@ namespace mercadolibre_challenge.Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
-
-        public DbSet<TodoList> TodoLists { get; set; }
-
         public DbSet<DnaSequence> DnaSequences { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

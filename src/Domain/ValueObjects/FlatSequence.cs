@@ -13,7 +13,7 @@ namespace mercadolibre_challenge.Domain.ValueObjects
             Sequence = sequence;
         }
 
-        public static FlatSequence From(IList<string> rows)
+        public static FlatSequence From(IEnumerable<string> rows)
         {
             var sb = new StringBuilder();
 

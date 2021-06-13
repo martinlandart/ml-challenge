@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using mercadolibre_challenge.Application.Common.Interfaces;
 using mercadolibre_challenge.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,8 +25,7 @@ namespace mercadolibre_challenge.Application.Mutants.Commands.CreateMutant
         {
             var dnaSequence = new DnaSequence(request.Dna);
 
-            _context.DnaSequences.Add(dnaSequence);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.DnaSequences.Upsert(dnaSequence).RunAsync();
 
             return dnaSequence.IsMutant;
         }

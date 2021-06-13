@@ -85,11 +85,6 @@ namespace mercadolibre_challenge.WebUI
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
 
             app.UseSwaggerUi3(settings =>
             {
@@ -100,8 +95,7 @@ namespace mercadolibre_challenge.WebUI
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

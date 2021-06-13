@@ -35,6 +35,29 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
         }
 
         [Test]
+        public async Task ShouldUpsertIfCreatingSameDnaTwice()
+        {
+            var command = new CreateDnaSequenceCommand
+            {
+                Dna = FlatSequence.From(new List<string>{
+                    "ATGCGA",
+                    "CAGTGC",
+                    "TTATGT",
+                    "AGAAGG",
+                    "CCCCTA",
+                    "TCACTG"
+                })
+            };
+
+            await SendAsync(command);
+            await SendAsync(command);
+
+            var result = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
+
+            result.Should().NotBeNull();
+        }
+
+        [Test]
         public async Task ShouldPersistMutantStatus()
         {
             var command = new CreateDnaSequenceCommand
