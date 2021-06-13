@@ -30,6 +30,7 @@ namespace mercadolibre_challenge.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
+
             services.AddInfrastructure(Configuration);
 
             services.AddDatabaseDeveloperPageExceptionFilter();

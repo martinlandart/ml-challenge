@@ -24,6 +24,19 @@ namespace mercadolibre_challenge.Infrastructure
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
 
+            if (configuration.GetValue<bool>("UseInMemoryCache"))
+            {
+                services.AddDistributedMemoryCache();
+            }
+            else
+            {
+                services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = configuration["RedisConnectionString"];
+                    options.InstanceName = "mlchallengeredis";
+                });
+            }
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IDomainEventService, DomainEventService>();

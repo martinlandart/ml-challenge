@@ -1,7 +1,5 @@
-using mercadolibre_challenge.Infrastructure.Identity;
 using mercadolibre_challenge.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

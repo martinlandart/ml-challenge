@@ -39,6 +39,26 @@
         }
       }
     },
+    "/api/Mutant/Stats": {
+      "get": {
+        "tags": [
+          "Mutant"
+        ],
+        "operationId": "Mutant_Stats",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MutantStatsVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/WeatherForecast": {
       "get": {
         "tags": [
@@ -75,6 +95,24 @@
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "MutantStatsVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "count_mutant_dna": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count_human_dna": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ratio": {
+            "type": "number",
+            "format": "double"
           }
         }
       },

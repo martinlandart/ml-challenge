@@ -1,4 +1,5 @@
 ﻿using mercadolibre_challenge.Application.Mutants.Commands.CreateMutant;
+using mercadolibre_challenge.Application.Mutants.Queries.GetMutantStats;
 using mercadolibre_challenge.Domain.ValueObjects;
 using mercadolibre_challenge.WebUI.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,14 @@ namespace mercadolibre_challenge.WebUI.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<MutantStatsVm>> Stats()
+        {
+            var query = new GetMutantStatsQuery();
+
+            return await Mediator.Send(query);
         }
     }
 }

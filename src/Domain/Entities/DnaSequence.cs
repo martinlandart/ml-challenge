@@ -24,14 +24,14 @@ namespace mercadolibre_challenge.Domain.Entities
             {
                 var dnaMatrix = StringToCharMatrix(Sequence);
 
-                var matchingSequences = 0;
+                var matchingSequencesCount = 0;
 
                 var directions = new Direction[4]
                 {
-                Direction.Right,
-                Direction.DownRight,
-                Direction.Down,
-                Direction.DownLeft
+                    Direction.Right,
+                    Direction.DownRight,
+                    Direction.Down,
+                    Direction.DownLeft
                 };
 
                 for (int i = 0; i < dnaMatrix.GetLength(0); i++)
@@ -58,7 +58,11 @@ namespace mercadolibre_challenge.Domain.Entities
 
                                 if (n == 3)
                                 {
-                                    matchingSequences++;
+                                    matchingSequencesCount++;
+                                    if (IsMutant(matchingSequencesCount))
+                                    {
+                                        return true;
+                                    }
                                     break;
                                 }
                             }
@@ -66,7 +70,7 @@ namespace mercadolibre_challenge.Domain.Entities
                     }
                 }
 
-                return matchingSequences > 1;
+                return false;
 
                 bool CoordinateIsOutOfBounds(int nextX, int nextY)
                 {
@@ -91,6 +95,11 @@ namespace mercadolibre_challenge.Domain.Entities
                     }
 
                     return array;
+                }
+
+                static bool IsMutant(int matchingSequences)
+                {
+                    return matchingSequences > 1;
                 }
             }
         }
