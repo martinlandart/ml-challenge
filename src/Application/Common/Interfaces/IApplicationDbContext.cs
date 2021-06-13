@@ -11,6 +11,8 @@ namespace mercadolibre_challenge.Application.Common.Interfaces
 
         DbSet<TodoItem> TodoItems { get; set; }
 
+        DbSet<DnaSequence> DnaSequences { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

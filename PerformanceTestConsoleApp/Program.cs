@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using mercadolibre_challenge.Domain.Entities;
+using mercadolibre_challenge.Domain.ValueObjects;
 using System.Collections.Generic;
 
 namespace PerformanceTestConsoleApp
@@ -17,35 +18,15 @@ namespace PerformanceTestConsoleApp
             "TCACTG"
         };
 
-        private readonly DnaSequence testSequence;
+        private readonly string dnaSequence;
 
         public DnaSequenceBenchmark()
         {
-            testSequence = new DnaSequence
-            {
-                Sequence = ConvertRowsToMultiDimensionalArray(mutantSequenceRows)
-            };
+            dnaSequence = FlatSequence.From(mutantSequenceRows);
         }
 
         [Benchmark]
-        public bool IsMutant() => testSequence.IsMutant();
-
-        private static char[,] ConvertRowsToMultiDimensionalArray(List<string> rows)
-        {
-            var dnaSequenceSize = rows[0].Length;
-
-            var array = new char[dnaSequenceSize, dnaSequenceSize];
-
-            for (int i = 0; i < dnaSequenceSize; i++)
-            {
-                for (int j = 0; j < dnaSequenceSize; j++)
-                {
-                    array[i, j] = rows[i][j];
-                }
-            }
-
-            return array;
-        }
+        public DnaSequence IsMutant() => new(dnaSequence);
     }
 
     class Program

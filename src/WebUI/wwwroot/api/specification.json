@@ -17,7 +17,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CheckDnaForXGenesCommand"
+                "$ref": "#/components/schemas/CreateDnaSequenceCommand"
               }
             }
           },
@@ -473,16 +473,13 @@
   },
   "components": {
     "schemas": {
-      "CheckDnaForXGenesCommand": {
+      "CreateDnaSequenceCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "dna": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "type": "string"
-            }
+            "type": "string",
+            "nullable": true
           }
         }
       },

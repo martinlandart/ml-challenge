@@ -2,6 +2,7 @@
 using mercadolibre_challenge.Domain.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Text;
 
 namespace mercadolibre_challenge.Domain.UnitTests.Entities
 {
@@ -48,56 +49,44 @@ namespace mercadolibre_challenge.Domain.UnitTests.Entities
         [Test]
         public void ShouldBeHuman()
         {
-            var sequence = new DnaSequence
-            {
-                Sequence = ConvertRowsToMultiDimensionalArray(humanSequenceRows)
-            };
+            DnaSequence sequence = BuildSequenceFromDnaRows(humanSequenceRows);
 
-            sequence.IsMutant().Should().BeFalse();
+            sequence.IsMutant.Should().BeFalse();
         }
 
         [Test]
         public void ShouldBeMutant()
         {
-            var sequence = new DnaSequence
-            {
-                Sequence = ConvertRowsToMultiDimensionalArray(mutantSequenceRows)
-            };
+            DnaSequence sequence = BuildSequenceFromDnaRows(mutantSequenceRows);
 
-            sequence.IsMutant().Should().BeTrue();
+            sequence.IsMutant.Should().BeTrue();
         }
 
         [Test]
         public void ShouldHandleTinyMatrix()
         {
-            var sequence = new DnaSequence
-            {
-                Sequence = ConvertRowsToMultiDimensionalArray(tinyHumanSequence)
-            };
+            DnaSequence sequence = BuildSequenceFromDnaRows(tinyHumanSequence);
 
-            sequence.IsMutant().Should().BeFalse();
+            sequence.IsMutant.Should().BeFalse();
         }
 
         [Test]
         public void ShouldHandleNbyNMatrix()
         {
-            var sequence = new DnaSequence
-            {
-                Sequence = ConvertRowsToMultiDimensionalArray(largerMutantSequenceRows)
-            };
+            DnaSequence sequence = BuildSequenceFromDnaRows(largerMutantSequenceRows);
 
-            sequence.IsMutant().Should().BeTrue();
+            sequence.IsMutant.Should().BeTrue();
         }
 
-        [Test]
-        public void ShouldFillArray()
+        private static DnaSequence BuildSequenceFromDnaRows(List<string> rows)
         {
-            var sequence = new DnaSequence
+            var sb = new StringBuilder();
+            foreach (var row in rows)
             {
-                Sequence = ConvertRowsToMultiDimensionalArray(largerMutantSequenceRows)
-            };
+                sb.Append(row);
+            }
 
-            sequence.Sequence.Length.Should().Be(7 * 7);
+            return new DnaSequence(sb.ToString());
         }
 
         private static char[,] ConvertRowsToMultiDimensionalArray(List<string> rows)

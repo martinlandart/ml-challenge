@@ -7,7 +7,7 @@ namespace mercadolibre_challenge.WebUI.Controllers
     public class MutantController : ApiControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult> Create(CheckDnaForXGenesCommand command)
+        public async Task<ActionResult> Create(CreateDnaSequenceCommand command)
         {
             var isMutant = await Mediator.Send(command);
             if (!isMutant)
