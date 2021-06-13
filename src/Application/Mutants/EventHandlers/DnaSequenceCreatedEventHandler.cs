@@ -19,8 +19,10 @@ namespace mercadolibre_challenge.Application.Mutants.EventHandlers
             _context = context;
         }
 
-        public async Task Handle(DomainEventNotification<DnaSequenceCreatedEvent> notification, CancellationToken cancellationToken)
+        public Task Handle(DomainEventNotification<DnaSequenceCreatedEvent> notification, CancellationToken cancellationToken)
         {
+            return Task.CompletedTask;
+
             // Unused since this executes as part of the Creation command handler
             // In a real project, I'd set up the infrastructure to test Event handlers properly
 
