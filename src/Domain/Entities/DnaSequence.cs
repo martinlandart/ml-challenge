@@ -11,6 +11,8 @@ namespace mercadolibre_challenge.Domain.Entities
 
         public bool IsMutant { get; set; }
 
+        public static HashSet<char> ValidLetters { get; set; } = new HashSet<char>("ACTG");
+
         public DnaSequence()
         {
         }

@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using mercadolibre_challenge.Application.Common.Exceptions;
 using mercadolibre_challenge.Application.Mutants.Commands.CreateMutant;
 using mercadolibre_challenge.Domain.Entities;
 using mercadolibre_challenge.Domain.ValueObjects;
@@ -12,6 +13,53 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
 
     public class CreateDnaSequenceTests : TestBase
     {
+        [Test]
+        public void ShouldThrowValidationErrorIfMatrixIsNotSquare()
+        {
+            var command = new CreateDnaSequenceCommand
+            {
+                Dna = FlatSequence.From(new List<string>{
+                    "ATGCGAAAA",
+                    "CAGTGC",
+                    "TTATGT",
+                    "AGAAGG",
+                    "CCCCTA",
+                    "TCACTG"
+                })
+            };
+
+            FluentActions.Invoking(() => SendAsync(command)).Should().Throw<ValidationException>();
+        }
+
+        [Test]
+        public void ShouldThrowValidationErrorIfEmpty()
+        {
+            var command = new CreateDnaSequenceCommand
+            {
+                Dna = FlatSequence.From(new List<string>())
+            };
+
+            FluentActions.Invoking(() => SendAsync(command)).Should().Throw<ValidationException>();
+        }
+
+        [Test]
+        public void ShouldThrowValidationErrorIfContainsInvalidLetters()
+        {
+            var command = new CreateDnaSequenceCommand
+            {
+                Dna = FlatSequence.From(new List<string>{
+                    "ATGCGZ",
+                    "CAGTGC",
+                    "TTATGT",
+                    "AGAAGG",
+                    "CCCCTA",
+                    "TCACTG"
+                })
+            };
+
+            FluentActions.Invoking(() => SendAsync(command)).Should().Throw<ValidationException>();
+        }
+
         [Test]
         public async Task ShouldPersistDnaSequence()
         {

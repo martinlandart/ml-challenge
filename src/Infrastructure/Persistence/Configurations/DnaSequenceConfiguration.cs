@@ -8,11 +8,11 @@ namespace mercadolibre_challenge.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<DnaSequence> builder)
         {
-            builder.Ignore(e => e.DomainEvents);
+            builder.Ignore(d => d.DomainEvents);
 
             builder.HasKey(d => d.Sequence);
 
-            builder.Property(t => t.IsMutant)
+            builder.Property(d => d.IsMutant)
                 .IsRequired();
         }
     }
