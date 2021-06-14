@@ -4,6 +4,7 @@ using mercadolibre_challenge.Application.Mutants.Commands.CreateMutant;
 using mercadolibre_challenge.Domain.Entities;
 using mercadolibre_challenge.Domain.ValueObjects;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -77,9 +78,9 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
 
             await SendAsync(command);
 
-            var result = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
+            var item = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
 
-            result.Should().NotBeNull();
+            item.Should().NotBeNull();
         }
 
         [Test]
@@ -100,9 +101,9 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
             await SendAsync(command);
             await SendAsync(command);
 
-            var result = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
+            var item = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
 
-            result.Should().NotBeNull();
+            item.Should().NotBeNull();
         }
 
         [Test]
@@ -122,9 +123,9 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
 
             await SendAsync(command);
 
-            var result = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
+            var item = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
 
-            result.IsMutant.Should().BeTrue();
+            item.IsMutant.Should().BeTrue();
         }
 
         [Test]
@@ -165,6 +166,28 @@ namespace mercadolibre_challenge.Application.IntegrationTests.Mutants.Commands
             var isMutant = await SendAsync(command);
 
             isMutant.Should().BeFalse();
+        }
+
+        [Test]
+        public async Task ShouldBeAuditable()
+        {
+            var command = new CreateDnaSequenceCommand
+            {
+                Dna = FlatSequence.From(new List<string>{
+                    "ATGCGA",
+                    "CAGTGC",
+                    "TTATGT",
+                    "AGAAGG",
+                    "CCCCTA",
+                    "TCACTG"
+                })
+            };
+
+            await SendAsync(command);
+
+            var item = await FindAsync<DnaSequence>("ATGCGACAGTGCTTATGTAGAAGGCCCCTATCACTG");
+
+            item.Created.Should().BeCloseTo(DateTime.Now, 10000);
         }
     }
 }

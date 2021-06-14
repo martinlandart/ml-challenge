@@ -34,9 +34,15 @@ namespace mercadolibre_challenge.Application.Mutants.Commands.CreateMutant
 
             dnaSequence.DomainEvents.Add(new DnaSequenceCreatedEvent(dnaSequence));
 
-            await _context.DnaSequences.Upsert(dnaSequence).RunAsync();
+            var item = await _context.DnaSequences.FindAsync(dnaSequence.Sequence);
 
-            // In a real project, I would execute this in the handler for the Domain event above,
+            if (item is null)
+            {
+                _context.DnaSequences.Add(dnaSequence);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
+            // In a real project, I would execute this in the handler for the Domain event sent in line 35,
             // since this behavior belongs to a different business requirement.
             // Due to time constraints for this exam, I'll leave this logic here
             await SetStatsCache(cancellationToken);
