@@ -21,7 +21,6 @@ public class Testing
     private static IServiceScopeFactory _scopeFactory;
     private static Checkpoint _checkpoint;
     private static string _currentUserId;
-    private static IDistributedCache _distributedCache;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -57,8 +56,6 @@ public class Testing
             Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
-
-        _distributedCache = services.BuildServiceProvider().GetService<IDistributedCache>();
 
         _checkpoint = new Checkpoint
         {
