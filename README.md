@@ -1,1 +1,1 @@
-![.NET](https://github.com/martinlandart/tdd-katas-dotnet/workflows/.NET/badge.svg)
+![.NET](https://github.com/martinlandart/ml-challenge/workflows/.NET/badge.svg)
