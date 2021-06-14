@@ -25,6 +25,12 @@ jobs:
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
+      
+    - name: Run unit tests
+      run: dotnet test
+
+    - name: Run automated unit and integration tests
+      run: dotnet test **/*Tests.dll
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ./src/WebUI/WebUI.csproj
