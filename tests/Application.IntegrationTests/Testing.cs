@@ -12,6 +12,7 @@ using Respawn;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 
 [SetUpFixture]
 public class Testing
@@ -20,6 +21,7 @@ public class Testing
     private static IServiceScopeFactory _scopeFactory;
     private static Checkpoint _checkpoint;
     private static string _currentUserId;
+    private static IDistributedCache _distributedCache;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -56,6 +58,8 @@ public class Testing
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
+        _distributedCache = services.BuildServiceProvider().GetService<IDistributedCache>();
+
         _checkpoint = new Checkpoint
         {
             TablesToIgnore = new[] { "__EFMigrationsHistory" }
@@ -87,6 +91,14 @@ public class Testing
     {
         await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
         _currentUserId = null;
+
+        using var scope = _scopeFactory.CreateScope();
+
+        var cache = scope.ServiceProvider.GetService<IDistributedCache>();
+
+        // Hacky way to reset the in memory cache, for prod uses I'd set up something like Respawn but for IDistributableCache
+        // Another option would be to run the integration tests with a temporal, local Redis server, similar to VS LocalDB.
+        await cache.RemoveAsync("stats");
     }
 
     public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)

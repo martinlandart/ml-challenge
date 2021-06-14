@@ -9,7 +9,6 @@ namespace mercadolibre_challenge.WebUI.Filters
 {
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
-
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
         public ApiExceptionFilterAttribute()
@@ -17,8 +16,7 @@ namespace mercadolibre_challenge.WebUI.Filters
             // Register known exception types and handlers.
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
-                { typeof(ValidationException), HandleValidationException },
-                { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(ValidationException), HandleValidationException }
             };
         }
 
@@ -69,22 +67,6 @@ namespace mercadolibre_challenge.WebUI.Filters
             };
 
             context.Result = new BadRequestObjectResult(details);
-
-            context.ExceptionHandled = true;
-        }
-
-        private void HandleNotFoundException(ExceptionContext context)
-        {
-            var exception = context.Exception as NotFoundException;
-
-            var details = new ProblemDetails()
-            {
-                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-                Title = "The specified resource was not found.",
-                Detail = exception.Message
-            };
-
-            context.Result = new NotFoundObjectResult(details);
 
             context.ExceptionHandled = true;
         }

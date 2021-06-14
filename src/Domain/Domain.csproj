@@ -6,4 +6,9 @@
     <AssemblyName>mercadolibre_challenge.Domain</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>

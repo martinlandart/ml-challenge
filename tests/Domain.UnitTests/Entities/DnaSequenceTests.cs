@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using mercadolibre_challenge.Domain.Entities;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -88,23 +87,6 @@ namespace mercadolibre_challenge.Domain.UnitTests.Entities
             }
 
             return new DnaSequence(sb.ToString());
-        }
-
-        private static char[,] ConvertRowsToMultiDimensionalArray(List<string> rows)
-        {
-            var dnaSequenceSize = rows[0].Length;
-
-            var array = new char[dnaSequenceSize, dnaSequenceSize];
-
-            for (int i = 0; i < dnaSequenceSize; i++)
-            {
-                for (int j = 0; j < dnaSequenceSize; j++)
-                {
-                    array[i, j] = rows[i][j];
-                }
-            }
-
-            return array;
         }
     }
 }
