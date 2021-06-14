@@ -2,7 +2,6 @@
 using mercadolibre_challenge.Application.Mutants.Commands.CreateMutant;
 using mercadolibre_challenge.Application.Mutants.Queries.GetMutantStats;
 using mercadolibre_challenge.Domain.ValueObjects;
-using Microsoft.Extensions.Caching.Distributed;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
