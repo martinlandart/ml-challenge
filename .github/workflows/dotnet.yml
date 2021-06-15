@@ -24,7 +24,7 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build ./mercadolibre-challenge.sln --configuration Release
       
     - name: Run unit tests
       run: dotnet test
