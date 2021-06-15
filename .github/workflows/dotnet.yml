@@ -27,10 +27,7 @@ jobs:
       run: dotnet build ./mercadolibre-challenge.sln --configuration Release
       
     - name: Run unit tests
-      run: dotnet test
-      
-    - name: Run tests
-      run: dotnet test
+      run: dotnet test ./mercadolibre-challenge.sln
     
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ./src/WebUI/WebUI.csproj
