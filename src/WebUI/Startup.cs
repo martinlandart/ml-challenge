@@ -85,7 +85,6 @@ namespace mercadolibre_challenge.WebUI
             }
 
             app.UseHealthChecks("/health");
-            app.UseHttpsRedirection();
 
             app.UseSwaggerUi3(settings =>
             {

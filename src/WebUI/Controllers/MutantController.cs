@@ -30,6 +30,8 @@ namespace mercadolibre_challenge.WebUI.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<MutantStatsVm>> Stats()
         {
+            // This could be separated into a new service for prod use and independent scalability
+
             var query = new GetMutantStatsQuery();
 
             return await Mediator.Send(query);
